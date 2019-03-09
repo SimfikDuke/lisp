@@ -1,7 +1,6 @@
-(print "Hello world")
 (defun srt (lst)
                 (cond 
-                    ((null (car lst)) `())
+                    ((null (car lst)) lst)
                     (t 
                         (setq nlst (srt (cddr lst)))
                         (list
@@ -13,3 +12,7 @@
 )
 
 (print (srt `(1 2 3 4 5 6)))
+(print (srt `(1 nil)))
+(print (srt `(1 2 3)))
+(print (srt `(nil)))
+(print (srt `(hello world this is code test)))
