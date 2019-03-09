@@ -81,3 +81,27 @@
 Скриншот:  
 
 ![scrnsht](https://i109.fastpic.ru/big/2019/0309/0f/4a1f4f430a5b6839b10769dba3a5270f.png)
+
+
+# Задание 26  
+Определите функцию, разбивающую список (a b с d...) на пары ((а b) (с d)...).
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defun pairs (lst)
+                (cond 
+                    ((null (car lst)) lst)
+                    (t 
+                        (cons (list (car lst) (cadr lst)) (pairs (cddr lst)))
+                    )
+                )
+)
+```  
+</p>
+</details>
+Скриншот:  
+
+![scrnsht](https://i109.fastpic.ru/big/2019/0309/05/206531cbed377f670808b7658daa1e05.png)
