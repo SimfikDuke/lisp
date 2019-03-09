@@ -28,3 +28,32 @@
 Скриншот:  
 
 ![scrnsht](https://wmpics.pics/di-FTFP.png)
+
+
+# Задание 19  
+Определите функцию (ЛУКОВИЦА n), строящую N-уровневый вложенный список, элементом которого на самом глубоком уровне является N.  
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defun onion (n)
+                (defun supportf (counter n) (
+                        cond 
+                            ((= counter n) (list n))
+                            (t (list (supportf (+ counter 1) n)))
+                
+                    )
+                )
+                (
+                    supportf 1 n
+                )
+            	
+)
+```  
+</p>
+</details>
+Скриншот:  
+
+![scrnsht](https://i109.fastpic.ru/big/2019/0309/62/344f05d74a8000a92be6f2f4ebd0ba62.png)
