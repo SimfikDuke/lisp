@@ -105,3 +105,69 @@
 Скриншот:  
 
 ![scrnsht](https://i109.fastpic.ru/big/2019/0309/05/206531cbed377f670808b7658daa1e05.png)
+
+
+# Задание 29  
+Определите функцию, вычисляющую глубину списка (самой глубокой ветви).
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defun maxtree (lst)(
+        cond
+        ((atom lst) 0)
+        (t
+            (
+                max (+ 1 (maxtree (car lst))) (maxtree (cdr lst))
+            )
+        )
+    )
+)
+```  
+</p>
+</details>
+Скриншот:  
+
+![scrnsht](https://i110.fastpic.ru/big/2019/0309/4c/00d321c1d8e7fbea148f026bd045e64c.png)
+
+
+# Задание 34  
+Определите предикат РАВЕНСТВО-МНОЖЕСТВ, проверяющий совпадение двух множеств (независимо от порядка следования элементов). Подсказка: напишите
+функцию УДАЛИТЬ, удаляющую данный элемент из множества.
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defun delel (lst el)(
+    cond
+    ((null (car lst)) (LIST NIL NIL))
+    ((= (car lst) el) (LIST (cdr lst) T))
+    (t 
+        (setq op (delel (cdr lst) el))
+        (LIST (cons (car lst) (car op)) (cadr op))
+        )
+))
+
+(defun eq (lst1 lst2)(
+    cond
+    ((and (null lst1) (null lst2)) T)
+    ((or (null lst1) (null lst2)) NIL)
+    (T
+        (setq deleted (delel lst2 (car lst1)))
+        (
+            cond
+            ((null (cadr deleted)) NIL)
+            (T (eq (cdr lst1) (car deleted)))
+        )
+    )
+))
+```  
+</p>
+</details>
+Скриншот:  
+
+![scrnsht](https://i109.fastpic.ru/big/2019/0310/0b/5eb4ef2217217d516777fb5b10d2ed0b.png)
