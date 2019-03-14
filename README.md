@@ -240,6 +240,62 @@
 </p>
 </details>
 
+
+# Задание 40  
+Определите функцию РАЗНОСТЬ, формирующую разность двух множеств, т.е.
+удаляющую из первого множества все общие со вторым множеством элементы.
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defun delel (lst el)
+    (
+        (lambda (first rest)
+            (cond
+                ((null lst) NIL)
+                ((equalp first el) rest)
+                (t (cons first (delel rest el)))
+            )   
+        )
+        (car lst) (cdr lst)
+    )
+)
+ 
+(defun diff (source elements)
+    (
+        (lambda (first_element rest_elements)
+            (cond
+                ((null elements) source)
+                (t (diff (delel source first_element) rest_elements))
+            )
+        )
+        (car elements) (cdr elements)
+    )
+)
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(print (diff `(1 2 3 4) `(1 4)))
+(print (diff `(1 2 3 4) `(1 2 3 4)))
+(print (diff `(1 2 3 4) `(6 7 8)))
+(print (diff `(There is no elements in list) `(no)))
+
+;(2 3) 
+;NIL 
+;(1 2 3 4) 
+;(THERE IS ELEMENTS IN LIST) 
+```  
+</p>
+</details>
+
 <!---
 Скриншот:  
 
