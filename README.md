@@ -25,9 +25,11 @@
 ```  
 </p>
 </details>
+<!---
 Скриншот:  
 
 ![scrnsht](https://wmpics.pics/di-FTFP.png)
+-->
 
 
 # Задание 19  
@@ -54,9 +56,11 @@
 ```  
 </p>
 </details>
+<!---
 Скриншот:  
 
 ![scrnsht](https://i109.fastpic.ru/big/2019/0309/62/344f05d74a8000a92be6f2f4ebd0ba62.png)
+-->
 
 
 # Задание 25  
@@ -78,9 +82,11 @@
 ```  
 </p>
 </details>
+<!---
 Скриншот:  
 
 ![scrnsht](https://i109.fastpic.ru/big/2019/0309/0f/4a1f4f430a5b6839b10769dba3a5270f.png)
+-->
 
 
 # Задание 26  
@@ -102,9 +108,11 @@
 ```  
 </p>
 </details>
+<!---
 Скриншот:  
 
 ![scrnsht](https://i109.fastpic.ru/big/2019/0309/05/206531cbed377f670808b7658daa1e05.png)
+-->
 
 
 # Задание 29  
@@ -128,9 +136,11 @@
 ```  
 </p>
 </details>
+<!---
 Скриншот:  
 
 ![scrnsht](https://i110.fastpic.ru/big/2019/0309/4c/00d321c1d8e7fbea148f026bd045e64c.png)
+-->
 
 
 # Задание 34  
@@ -168,6 +178,8 @@
 ```  
 </p>
 </details>
+<!---
 Скриншот:  
 
 ![scrnsht](https://i109.fastpic.ru/big/2019/0310/0b/5eb4ef2217217d516777fb5b10d2ed0b.png)
+-->
