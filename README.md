@@ -14,12 +14,12 @@
                 (cond 
                     ((null lst) NIL)
                     (t 
-						((lambda (nlst)
-							(list
-								(cons (car lst) (car nlst))
-								(cons (cadr lst) (cadr nlst))
-							))
-						(sep (cddr lst)))
+			((lambda (nlst)
+				(list
+					(cons (car lst) (car nlst))
+					(cons (cadr lst) (cadr nlst))
+				))
+			(sep (cddr lst)))
                     )
                 )
 )
@@ -64,7 +64,7 @@
 ```lisp
 (defun deleven (lst)
                 (cond 
-                    ((null (car lst)) lst)
+                    ((null lst) NIL)
                     (t 
                         (cons (car lst) (deleven (cddr lst)))
                     )
@@ -85,7 +85,7 @@
 ```lisp
 (defun pairs (lst)
                 (cond 
-                    ((null (car lst)) lst)
+                    ((null lst) NIL)
                     (t 
                         (cons (list (car lst) (cadr lst)) (pairs (cddr lst)))
                     )
@@ -103,12 +103,12 @@
 #### Код на LISP  
 
 ```lisp
-(defun maxtree (lst)(
+(defun maxdeep (lst)(
         cond
         ((atom lst) 0)
         (t
             (
-                max (+ 1 (maxtree (car lst))) (maxtree (cdr lst))
+                max (+ 1 (maxdeep (car lst))) (maxdeep (cdr lst))
             )
         )
     )
