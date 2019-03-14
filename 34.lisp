@@ -1,23 +1,35 @@
-(defun delel (lst el)(
-    cond
-    ((null (car lst)) (LIST NIL NIL))
-    ((= (car lst) el) (LIST (cdr lst) T))
-    (t 
-        (setq op (delel (cdr lst) el))
-        (LIST (cons (car lst) (car op)) (cadr op))
+(defun delel (lst el)
+    (
+        (lambda (first rest)
+            (cond
+                ((null lst) NIL)
+                ((= first el) rest)
+                (t (cons first (delel rest el)))
+            )   
         )
-))
-
-(defun eq (lst1 lst2)(
-    cond
-    ((and (null lst1) (null lst2)) T)
-    ((or (null lst1) (null lst2)) NIL)
-    (T
-        (setq deleted (delel lst2 (car lst1)))
-        (
-            cond
-            ((null (cadr deleted)) NIL)
-            (T (eq (cdr lst1) (car deleted)))
-        )
+        (car lst) (cdr lst)
     )
-))
+)
+
+(defun diff (source elements)
+    (
+        (lambda (first_element rest_elements)
+            (cond
+                ((null elements) source)
+                (t (diff (delel source first_element) rest_elements))
+            )
+        )
+        (car elements) (cdr elements)
+    )
+)
+
+(defun equal_lists_p (lst1 lst2)
+    (and
+        (null (diff lst1 lst2))
+        (null (diff lst2 lst1))
+    )
+)
+
+(print (equal_lists_p `(1 2 3 4) `(1 4)))
+(print (equal_lists_p `(1 2 3 4) `(1 2 3 4)))
+(print (equal_lists_p `(1 2 3 4) `(2 1 4 3)))
