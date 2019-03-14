@@ -10,15 +10,16 @@
 #### Код на LISP  
 
 ```lisp
-(defun srt (lst)
+(defun sep (lst)
                 (cond 
-                    ((null (car lst)) lst)
+                    ((null lst) NIL)
                     (t 
-                        (setq nlst (srt (cddr lst)))
-                        (list
-                            (cons (car lst) (car nlst))
-                            (cons (cadr lst) (cadr nlst))
-                        )
+						((lambda (nlst)
+							(list
+								(cons (car lst) (car nlst))
+								(cons (cadr lst) (cadr nlst))
+							))
+						(sep (cddr lst)))
                     )
                 )
 )
