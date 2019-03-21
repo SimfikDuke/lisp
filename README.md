@@ -307,8 +307,13 @@
 
 ```lisp
 (defun putprop (symbol_name prop_name value) (setf (get symbol_name prop_name) value))
-(defun getprop (symbol_name prop_name) (get symbol_name prop_name))
-
+(defun getX (symbol_name) (get symbol_name `x))
+(defun getY (symbol_name) (get symbol_name `y))
+(defun set_city (&key city_name x y)
+	(putprop city_name `x x)
+	(putprop city_name `y y)
+)
+ 
 (defun distantion (city1 city2)
     (
         (lambda (city1x city1y city2x city2y) 
@@ -319,10 +324,10 @@
                 )
             )
         )
-        (getprop city1 `x)
-        (getprop city1 `y)
-        (getprop city2 `x)
-        (getprop city2 `y)
+        (getX city1)
+        (getY city1)
+        (getX city2)
+        (getY city2)
     )
 )
 ```  
@@ -334,12 +339,12 @@
 #### Код на LISP  
 
 ```lisp
-(putprop `Simferopol `x 150)
-(putprop `Simferopol `y 135)
-(putprop `Sevastopol `x 200)
-(putprop `Sevastopol `y 50)
+
+(set_city :city_name `Simferopol :x 150 :y 135)
+(set_city :city_name `Sevastopol :x 200 :y 50)
 
 (print (distantion `Simferopol `Sevastopol))
+
 ;98.61542
 ```  
 </p>
