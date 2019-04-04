@@ -419,7 +419,8 @@
 
 ```lisp
 (defun fun-call (f &rest args)
-              (apply f args))
+	(apply f args)
+)
 ```  
 </p>
 </details>  
@@ -430,7 +431,8 @@
 
 ```lisp
 (defun fun-call (f &rest args)
-              (apply f args))
+	(apply f args)
+)
 	      
 (defun my-func (&rest args) (print args))
               
