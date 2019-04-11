@@ -487,44 +487,193 @@
 ;(11 22 33) 
 ```  
 </p>
+</details>   
+
+
+## Задание 5  
+Определите функциональный предикат(НЕКОТОРЫй пред список),который истинен, когда, являющейся функциональным аргументом предикат пред истинен хотя бы для одного элемента списка список.  
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defun any-of-p (funcp args)
+	(
+		(lambda (first-arg rest-args)
+			(
+				cond
+				((null args) nil)
+    			((apply funcp (list first-arg)) t)
+				(t
+					(any-of-p funcp rest-args)
+				)
+			)
+		)
+		(car args)
+		(cdr args)
+	)
+)
+```  
+</p>
 </details>  
-<!---
-Скриншот:  
+<details><summary>Тесты</summary>
+<p>  
 
-![scrnsht](https://wmpics.pics/di-FTFP.png)  
+#### Код на LISP  
 
---->
+```lisp
+(defun eq-to-two-p (val) (cond ((eq val 2)) (t nil)))
 
-<!---
-Скриншот:  
+(print (any-of-p `eq-to-two-p `(1 3 4 5)))
+(print (any-of-p `eq-to-two-p `(1 3 4 5 2 3)))
+; NIL
+; T
+```  
+</p>
+</details>   
 
-![scrnsht](https://i109.fastpic.ru/big/2019/0309/62/344f05d74a8000a92be6f2f4ebd0ba62.png)  
 
---->
+## Задание 7  
+Определите фильтр (УДАЛИТЬ-ЕСЛИ-НЕ пред список), удаляющий из списка список все элементы, которые не обладают свойством, наличие которого проверяет предикат пред.  
+<details><summary>Решение</summary>
+<p>  
 
-<!---
-Скриншот:  
+#### Код на LISP  
 
-![scrnsht](https://i109.fastpic.ru/big/2019/0309/0f/4a1f4f430a5b6839b10769dba3a5270f.png)  
+```lisp
+(defun del-if-not (pred lst)
+	(
+		(lambda (first rest)
+			(cond
+				((null lst) nil)
+				(t
+      				(
+						(lambda (result-of-rest)
+							(cond
+	       						((apply pred (list first))
+	              					(cons first result-of-rest))
+	       						(t result-of-rest)
+	            			)
+						)
+	     				(del-if-not pred rest)
+          			)
+				)
+			)
+		)
+		(car lst)
+		(cdr lst)
+	)
+)
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
 
---->
+#### Код на LISP  
 
-<!---
-Скриншот:  
+```lisp
+(defun check-x-prop-p (sym)
+	(cond
+		((null (get sym `x)) nil)
+		(t t)
+	)
+)
 
-![scrnsht](https://i109.fastpic.ru/big/2019/0309/05/206531cbed377f670808b7658daa1e05.png)  
+(setf (get `A `x) 10)
+(setf (get `B `x) 20)
+(setf (get `C `x) 30)
 
---->
+(print (del-if-not `check-x-prop-p `(A B D C F)))
+;(A B C)
+```  
+</p>
+</details>   
 
-<!---
-Скриншот:  
 
-![scrnsht](https://i110.fastpic.ru/big/2019/0309/4c/00d321c1d8e7fbea148f026bd045e64c.png)  
+## Задание 9  
+Напишите генератор порождения чисел Фибоначчи: 0, 1, 1, 2, 3, 5, ... 
+<details><summary>Решение</summary>
+<p>  
 
---->
-<!---
-Скриншот:  
+#### Код на LISP  
 
-![scrnsht](https://i109.fastpic.ru/big/2019/0310/0b/5eb4ef2217217d516777fb5b10d2ed0b.png)  
+```lisp
+(defun gen nil
+  ((lambda (last-number penultimate-number)
+     (cond
+       ((null (get `gen `prev))
+        (car (setf (get `gen `prev) (list 0 1))))
+       (t (car (setf (get `gen `prev)
+                     (list (+ last-number penultimate-number)
+                           last-number))))))
+   (car (get `gen `prev))
+   (cadr (get `gen `prev))))
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
 
---->
+#### Код на LISP  
+
+```lisp
+(print (gen))
+(print (gen))
+(print (gen))
+(print (gen))
+(print (gen))
+(print (gen))
+(print (gen))
+(print (gen))
+; 0 
+; 1 
+; 1 
+; 2 
+; 3 
+; 5 
+; 8 
+; 13 
+```  
+</p>
+</details>   
+
+
+## Задание 11  
+Определите фукнционал МНОГОФУН, который использует функции, являющиеся аргументами, по следующей схеме:
+(МНОГОФУН ’(f g ... h) x) ⇔ (LIST (f x) (g x) ... (h x)). 
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defun many-fun (funcs x)
+  ((lambda (first-func rest-funcs)
+     (cond
+       ((null funcs) nil)
+       (t (append
+            (list (apply first-func (list x)))
+            (many-fun rest-funcs x)))))
+   (car funcs) (cdr funcs)))
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defun mlt (x) (* x 5))
+(defun pls (x) (+ x 5))
+(defun dvd (x) (/ x 5))
+
+(print (many-fun `(mlt pls dvd) 10))
+(print (many-fun `(dvd mlt pls) 45))
+; (50 15 2) 
+; (9 225 50)
+```  
+</p>
+</details>  
