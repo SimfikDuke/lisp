@@ -1,11 +1,6 @@
 (defun many-fun (funcs x)
-  ((lambda (first-func rest-funcs)
-     (cond
-       ((null funcs) nil)
-       (t (append
-            (list (apply first-func (list x)))
-            (many-fun rest-funcs x)))))
-   (car funcs) (cdr funcs)))
+  (mapcar (lambda (f) (apply f (list x))) funcs))
+
 
 (defun mlt (x) (* x 5))
 (defun pls (x) (+ x 5))

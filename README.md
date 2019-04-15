@@ -567,16 +567,15 @@
 #### Код на LISP  
 
 ```lisp
-(defun gen nil
-  ((lambda (last-number penultimate-number)
-     (cond
-       ((null (get `gen `prev))
-        (car (setf (get `gen `prev) (list 0 1))))
-       (t (car (setf (get `gen `prev)
-                     (list (+ last-number penultimate-number)
-                           last-number))))))
-   (car (get `gen `prev))
-   (cadr (get `gen `prev))))
+(defun gen-fib ()
+    (let ((p1 0) (p2 1))
+        (lambda ()
+            (setq
+                temp p1
+                p1 (+ p2 p1)
+                p2 temp))
+    )
+)
 ```  
 </p>
 </details>  
@@ -586,6 +585,7 @@
 #### Код на LISP  
 
 ```lisp
+(setq gen (gen-fib))
 (print (gen))
 (print (gen))
 (print (gen))
@@ -617,13 +617,7 @@
 
 ```lisp
 (defun many-fun (funcs x)
-  ((lambda (first-func rest-funcs)
-     (cond
-       ((null funcs) nil)
-       (t (append
-            (list (apply first-func (list x)))
-            (many-fun rest-funcs x)))))
-   (car funcs) (cdr funcs)))
+  (mapcar (lambda (f) (apply f (list x))) funcs))
 ```  
 </p>
 </details>  
@@ -641,6 +635,39 @@
 (print (many-fun `(dvd mlt pls) 45))
 ; (50 15 2) 
 ; (9 225 50)
+```  
+</p>
+</details>     
+
+
+## Задание 13  
+Определите функцию, которая возвращает в качестве значения свое определение (лямбда-выражение).  
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defun selfie ()
+    `(self will be returned))
+
+(defun self ()
+    (function-lambda-expression `self))
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(print (selfie))
+;(SELF WILL BE RETURNED)
+
+(print (self))
+;(LAMBDA NIL (DECLARE (SYSTEM::IN-DEFUN SELF))
+; (BLOCK SELF (FUNCTION-LAMBDA-EXPRESSION `SELF))) 
 ```  
 </p>
 </details>  
