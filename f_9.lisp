@@ -8,21 +8,24 @@
 	)
 )
 
-(setq gen (gen-fib))
+(setq gen1 (gen-fib))
+(setq gen2 (gen-fib))
 
-(print (funcall gen))
-(print (funcall gen))
-(print (funcall gen))
-(print (funcall gen))
-(print (funcall gen))
-(print (funcall gen))
-(print (funcall gen))
-(print (funcall gen))
+(print (funcall gen1))
+(print (funcall gen1))
+(print (funcall gen2))
+(print (funcall gen1))
+(print (funcall gen2))
+(print (funcall gen2))
+(print (funcall gen1))
+(print (funcall gen2))
+(print (funcall gen2))
+; 0 
+; 1 
 ; 0 
 ; 1 
 ; 1 
+; 1 
+; 2 
 ; 2 
 ; 3 
-; 5 
-; 8 
-; 13 

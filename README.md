@@ -585,23 +585,27 @@
 #### Код на LISP  
 
 ```lisp
-(setq gen (gen-fib))
-(print (gen))
-(print (gen))
-(print (gen))
-(print (gen))
-(print (gen))
-(print (gen))
-(print (gen))
-(print (gen))
+(setq gen1 (gen-fib))
+(setq gen2 (gen-fib))
+
+(print (funcall gen1))
+(print (funcall gen1))
+(print (funcall gen2))
+(print (funcall gen1))
+(print (funcall gen2))
+(print (funcall gen2))
+(print (funcall gen1))
+(print (funcall gen2))
+(print (funcall gen2))
+; 0 
+; 1 
 ; 0 
 ; 1 
 ; 1 
+; 1 
+; 2 
 ; 2 
 ; 3 
-; 5 
-; 8 
-; 13 
 ```  
 </p>
 </details>   
@@ -648,11 +652,8 @@
 #### Код на LISP  
 
 ```lisp
-(defun selfie ()
-    `(self will be returned))
-
 (defun self ()
-    (function-lambda-expression `self))
+    (caddr (cadddr (function-lambda-expression `self))))
 ```  
 </p>
 </details>  
@@ -662,12 +663,9 @@
 #### Код на LISP  
 
 ```lisp
-(print (selfie))
-;(SELF WILL BE RETURNED)
-
 (print (self))
-;(LAMBDA NIL (DECLARE (SYSTEM::IN-DEFUN SELF))
-; (BLOCK SELF (FUNCTION-LAMBDA-EXPRESSION `SELF))) 
+
+; (CADDR (CADDDR (FUNCTION-LAMBDA-EXPRESSION `SELF)))
 ```  
 </p>
 </details>  
