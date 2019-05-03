@@ -407,7 +407,7 @@
 </details>  
 
 
-# Функции высших порядков
+# 2. Функции высших порядков
 
 
 ## Задание 1  
@@ -669,3 +669,163 @@
 ```  
 </p>
 </details>  
+
+
+# 3. Макросы
+
+
+## Задание 1  
+Определите макрос, который возвращает свой вызов.
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defmacro self () ``(self))
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(print (self))
+; (SELF)
+```  
+</p>
+</details>  
+
+
+## Задание 2  
+Определите макрос (POP стек), который читает из стека верхний элемент и меняет значение переменной стека.
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defmacro pop-stack (s)
+  `(prog1
+     (setq top (car ,s))
+     (setq ,s (cdr ,s))))
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(setq num-stack `(1 2 3))
+(setq sym-stack `(hello world))
+
+(print (pop-stack num-stack))
+(print (pop-stack num-stack))
+(print (pop-stack sym-stack))
+(print (pop-stack num-stack))
+(print (pop-stack sym-stack))
+; 1 
+; 2 
+; HELLO 
+; 3 
+; WORLD
+```  
+</p>
+</details>  
+
+
+## Задание 3  
+Определите лисповскую форму (IF условие p q) в виде макроса.
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defmacro new-if (condition p q)
+  `(if ,condition ,p ,q))
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(print (new-if (< 5 2) 'FIVE 'TWO))
+(print (new-if (< 2 5) 'FIVE 'TWO))
+; TWO
+; FIVE
+```  
+</p>
+</details>  
+
+
+## Задание 4  
+Определите в виде макроса форму (FIF тест отр нуль полож).
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defmacro FIF (test negative zero positive)
+  `(cond
+     ((< ,test 0) ,negative)
+     ((= ,test 0) ,zero)
+     (t ,positive)))
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(print (FIF -1 `- `= `+))
+(print (FIF 0 `- `= `+))
+(print (FIF 1 `- `= `+))
+; - 
+; = 
+; + 
+```  
+</p>
+</details>  
+
+
+## Задание 5  
+Определите в виде макроса форму (REPEAT e UNTIL p) паскалевского типа.
+<details><summary>Решение</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(defmacro repeat (e until p)
+  `(cond 
+     (,p (progn ,e (repeat ,e until ,p)))))
+```  
+</p>
+</details>  
+<details><summary>Тесты</summary>
+<p>  
+
+#### Код на LISP  
+
+```lisp
+(setq stack `(1 2 3))
+(repeat (print (pop stack)) until stack)
+; 1
+; 2
+; 3
+```  
+</p>
+</details>  
+
+
