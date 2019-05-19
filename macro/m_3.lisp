@@ -1,5 +1,4 @@
 ; 3. Определите лисповскую форму (IF условие p q) в виде макроса.
-
 (defmacro new-if (condition p q)
   `(if ,condition ,p ,q))
 
